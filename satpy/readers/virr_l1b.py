@@ -115,7 +115,8 @@ class VIRR_L1B(HDF5FileHandler):
 
     def _correct_slope(self, slope):
         # 0 slope is invalid. Note: slope can be a scalar or array.
-        return da.where(slope == 0, 1, slope)
+        # TODO: FIGURE OUT WHY DA.WHERE CAUSES POLAR2GRID TO FAIL, BUT NOT NP.WHERE.
+        return np.where(slope == 0, 1, slope)
 
     @property
     def start_time(self):
